@@ -35,6 +35,33 @@
   background-size: contain;
   position: absolute;
 }
+.ghost {
+  width: 37px;
+  height: 37px;
+  display: inline-block;
+  background-size: contain;
+  position: absolute;
+}
+
+.ghost:nth-child(1) {
+  background-image: url("img/bluey.gif");
+}
+
+.ghost:nth-child(2) {
+  background-image: url("img/pinky.gif");
+}
+
+.ghost:nth-child(3) {
+  background-image: url("img/pumpky.gif");
+}
+
+.ghost:nth-child(4) {
+  background-image: url("img/red.gif");
+}
+
+.ghost:nth-child(5) {
+  background-image: url("img/scaredy.png");
+}
 #menu {
   width: 200px;
 }

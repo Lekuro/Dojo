@@ -7,6 +7,25 @@ var worldDict = {
 var size = { r: 12, c: 21 };
 var world = [];
 createRandomWorld();
+
+var ninjaman = {
+  x: 1,
+  y: 1
+};
+var ghosts = [
+  { x: size.c - 2, y: 1 },
+  { x: 1, y: size.r - 2 },
+  { x: size.c - 2, y: size.r - 2 },
+  { x: Math.round((size.c - 2) / 2), y: size.r - 2 },
+  { x: size.c - 2, y: Math.round((size.r - 2) / 2) }
+];
+
+var scoreSushi = 0;
+var scoreOnigiri = 0;
+var cost = {
+  sushi: 10,
+  onigiri: 5
+};
 function drawWorld() {
   output = "";
   for (var row = 0; row < world.length; row++) {
@@ -21,15 +40,28 @@ function drawWorld() {
 }
 drawWorld();
 
-var ninjaman = {
-  x: 1,
-  y: 1
-};
 function drawNinjaman() {
   document.getElementById("ninjaman").style.top = ninjaman.y * 40 + "px";
   document.getElementById("ninjaman").style.left = ninjaman.x * 40 + "px";
 }
 drawNinjaman();
+
+function drawGhosts() {
+  content = "";
+  //console.log(enemies);
+  for (var i = 0; i < ghosts.length; i++) {
+    //console.log(idx);
+    content +=
+      '<div class="ghost" style="left:' +
+      ghosts[i].x * 40 +
+      "px; top: " +
+      ghosts[i].y * 40 +
+      'px;"></div>';
+  }
+  document.getElementById("ghosts").innerHTML = content;
+}
+drawGhosts();
+
 function drawMenu() {
   output = "";
   output += '<div><div class="block sushi"></div>';
@@ -42,12 +74,7 @@ function drawMenu() {
   document.getElementById("menu").innerHTML = output;
 }
 drawMenu();
-var scoreSushi = 0;
-var scoreOnigiri = 0;
-var cost = {
-  sushi: 10,
-  onigiri: 5
-};
+
 var print = document.getElementsByClassName("print");
 document.onkeydown = function(e) {
   if (e.keyCode == 37) {
@@ -87,3 +114,34 @@ document.onkeydown = function(e) {
   drawWorld();
   drawNinjaman();
 };
+function moveGhosts() {
+  for (var i = 0; i < ghosts.length; i++) {
+    if (ninjaman.x < ghosts[i].x) {
+      if (world[ghosts[i].y][ghosts[i].x - 1] != 1) {
+        ghosts[i].x--;
+      }
+    }
+    if (ninjaman.x > ghosts[i].x) {
+      if (world[ghosts[i].y][ghosts[i].x + 1] != 1) {
+        ghosts[i].x++;
+      }
+    }
+    if (ninjaman.y < ghosts[i].y) {
+      if (world[ghosts[i].y - 1][ghosts[i].x] != 1) {
+        ghosts[i].y--;
+      }
+    }
+    if (ninjaman.y > ghosts[i].y) {
+      if (world[ghosts[i].y + 1][ghosts[i].x] != 1) {
+        ghosts[i].y++;
+      }
+    }
+    drawGhosts();
+  }
+}
+function gameLoop() {
+  moveGhosts();
+  console.log("gameLoop is running!");
+  var timer = setTimeout(gameLoop, 1000);
+}
+gameLoop();

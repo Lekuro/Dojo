@@ -95,6 +95,7 @@ function createRandomWorld() {
     }
   }
   //drawWorld(); debugger;
+  //---------look like nice-----------
   //check cube 3x3
   for (var i = 2; i < size.r - 2; i++) {
     for (var j = 2; j < size.c - 2; j++) {
