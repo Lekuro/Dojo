@@ -204,6 +204,83 @@ function createRandomWorld() {
   }
   checkSpuare();
   //drawWorld(); debugger;
+  //check rectangle elements 3x2
+  for (var i = 2; i < 3; i++) {
+    for (var j = 3; j < size.c; j++) {
+      if (world[i][j] != 1) {
+        if (
+          world[i][j - 2] != 1 &&
+          world[i - 1][j - 2] != 1 &&
+          world[i][j - 1] != 1 &&
+          world[i - 1][j - 1] != 1 &&
+          world[i - 1][j] != 1
+        ) {
+          if (world[i + 1][j - 1] == 1) {
+            world[i][j - 1] = 1;
+          }
+        }
+      }
+    } //drawWorld(); debugger;
+  }
+  for (var i = 3; i < size.r; i++) {
+    for (var j = 3; j < size.c; j++) {
+      if (world[i][j] != 1) {
+        if (
+          world[i][j - 2] != 1 &&
+          world[i - 1][j - 2] != 1 &&
+          world[i][j - 1] != 1 &&
+          world[i - 1][j - 1] != 1 &&
+          world[i - 1][j] != 1
+        ) {
+          if (world[i - 2][j - 1] == 1) {
+            world[i - 1][j - 1] = 1;
+          } else if (world[i + 1][j - 1] == 1) {
+            world[i][j - 1] = 1;
+          }
+        }
+      }
+    } //drawWorld(); debugger;
+  }
+  //drawWorld(); debugger;
+  //check rectangle elements 2x3
+  for (var i = 3; i < size.r; i++) {
+    for (var j = 2; j < 3; j++) {
+      if (world[i][j] != 1) {
+        if (
+          world[i - 2][j - 1] != 1 &&
+          world[i - 2][j] != 1 &&
+          world[i - 1][j - 1] != 1 &&
+          world[i - 1][j] != 1 &&
+          world[i][j - 1] != 1
+        ) {
+          if (world[i - 1][j + 1] == 1) {
+            world[i - 1][j] = 1;
+          }
+        }
+      }
+    } //drawWorld(); debugger;
+  }
+  for (var i = 3; i < size.r; i++) {
+    for (var j = 3; j < size.c; j++) {
+      if (world[i][j] != 1) {
+        if (
+          world[i - 2][j - 1] != 1 &&
+          world[i - 2][j] != 1 &&
+          world[i - 1][j - 1] != 1 &&
+          world[i - 1][j] != 1 &&
+          world[i][j - 1] != 1
+        ) {
+          if (world[i - 1][j - 2] == 1) {
+            world[i - 1][j - 1] = 1;
+          } else if (world[i - 1][j + 1] == 1) {
+            world[i - 1][j] = 1;
+          }
+        }
+      }
+    } //drawWorld(); debugger;
+  }
+  //drawWorld(); debugger;
+  checkSpuare();
   console.log(world);
   return world;
 }

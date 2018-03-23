@@ -4,7 +4,7 @@ var worldDict = {
   2: "block sushi",
   3: "block onigiri"
 };
-var size = { r: 9, c: 15 };
+var size = { r: 12, c: 21 };
 var world = [];
 createRandomWorld();
 function drawWorld() {
