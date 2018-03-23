@@ -2,10 +2,10 @@ var world = [
   [1, 1, 1, 1, 1],
   [1, 0, 2, 2, 1],
   [1, 2, 1, 2, 1],
-  [1, 2, 2, 2, 1],
+  [1, 3, 3, 3, 1],
   [1, 2, 2, 2, 1],
   [1, 2, 1, 2, 1],
-  [1, 2, 2, 2, 1],
+  [1, 3, 3, 3, 1],
   [1, 2, 2, 2, 1],
   [1, 2, 1, 2, 1],
   [1, 2, 2, 2, 1],
@@ -14,7 +14,8 @@ var world = [
 var worldDict = {
   0: "block blank",
   1: "block wall",
-  2: "block sushi"
+  2: "block sushi",
+  3: "block onigiri"
 };
 function drawWorld() {
   output = "";
@@ -41,12 +42,22 @@ function drawNinjaman() {
 drawNinjaman();
 function drawMenu() {
   output = "";
-  output += '<div class="block sushi"></div>';
-  output += '<div class="print"></div>';
+  output += '<div><div class="block sushi"></div>';
+  output += '<div class="print"></div></div>';
+  output += '<div><div class="block onigiri"></div>';
+  output += '<div class="print"></div></div>';
+  output += '<div><div class="block sushi"></div>';
+  output += '<div class="block onigiri"></div>';
+  output += '<div class="print"></div></div>';
   document.getElementById("menu").innerHTML = output;
 }
 drawMenu();
-var score = 0;
+var scoreSushi = 0;
+var scoreOnigiri = 0;
+var cost = {
+  sushi: 10,
+  onigiri: 5
+};
 var print = document.getElementsByClassName("print");
 document.onkeydown = function(e) {
   if (e.keyCode == 37) {
@@ -71,11 +82,18 @@ document.onkeydown = function(e) {
   }
   //console.log(ninjaman, world[ninjaman.y][ninjaman.x]);
   if (world[ninjaman.y][ninjaman.x] == 2) {
-    score++;
-    console.log(score, world[ninjaman.y][ninjaman.x]);
-    print[0].innerHTML = score;
+    scoreSushi += cost.sushi;
+    //console.log(scoreSushi, world[ninjaman.y][ninjaman.x]);
+    print[0].innerHTML = scoreSushi;
     world[ninjaman.y][ninjaman.x] = 0;
   }
+  if (world[ninjaman.y][ninjaman.x] == 3) {
+    scoreOnigiri += cost.onigiri;
+    //console.log(scoreOnigiri, world[ninjaman.y][ninjaman.x]);
+    print[1].innerHTML = scoreOnigiri;
+    world[ninjaman.y][ninjaman.x] = 0;
+  }
+  print[2].innerHTML = scoreSushi + scoreOnigiri;
   drawWorld();
   drawNinjaman();
 };

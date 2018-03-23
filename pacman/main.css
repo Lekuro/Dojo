@@ -24,20 +24,30 @@
   background-image: url("img/sushi.png");
   background-size: contain;
 }
-
+.onigiri {
+  background-color: black;
+  background-image: url("img/onigiri.png");
+  background-size: contain;
+}
 #ninjaman {
   background-color: black;
   background-image: url("img/ninja.gif");
   background-size: contain;
   position: absolute;
 }
+#menu {
+  width: 200px;
+}
 .print {
   font-size: 36px;
-  width: 160px;
+  width: 160px; /**/
   text-align: center;
   height: 40px;
   line-height: 40px;
   vertical-align: top;
   display: inline-block;
   background-color: aquamarine;
+}
+.print:nth-child(3) {
+  width: 120px;
 }
