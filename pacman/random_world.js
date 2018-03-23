@@ -41,6 +41,21 @@ function createRandomWorld() {
     }
   }
   //drawWorld(); debugger;
+  //Check from right to left lonely elements and continue them
+  for (var i = 1; i < size.r - 1; i++) {
+    for (var j = size.c - 2; j >= 2; j--) {
+      if (world[i][j] != 1) {
+        if (
+          world[i][j - 1] == 1 &&
+          world[i - 1][j] == 1 &&
+          world[i + 1][j] == 1
+        ) {
+          world[i][j - 1] = Math.floor(2 + Math.random() * 2);
+        }
+      }
+    }
+  }
+  //drawWorld(); debugger;
   console.log(world);
   return world;
 }
