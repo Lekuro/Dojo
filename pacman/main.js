@@ -1,22 +1,12 @@
-var world = [
-  [1, 1, 1, 1, 1],
-  [1, 0, 2, 2, 1],
-  [1, 2, 1, 2, 1],
-  [1, 3, 3, 3, 1],
-  [1, 2, 2, 2, 1],
-  [1, 2, 1, 2, 1],
-  [1, 3, 3, 3, 1],
-  [1, 2, 2, 2, 1],
-  [1, 2, 1, 2, 1],
-  [1, 2, 2, 2, 1],
-  [1, 1, 1, 1, 1]
-];
 var worldDict = {
   0: "block blank",
   1: "block wall",
   2: "block sushi",
   3: "block onigiri"
 };
+var size = { r: 9, c: 15 };
+var world = [];
+createRandomWorld();
 function drawWorld() {
   output = "";
   for (var row = 0; row < world.length; row++) {
