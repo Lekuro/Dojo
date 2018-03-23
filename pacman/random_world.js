@@ -71,6 +71,26 @@ function createRandomWorld() {
     }
   }
   //drawWorld(); debugger;
+  //check cube 3x3
+  for (var i = 2; i < size.r - 2; i++) {
+    for (var j = 2; j < size.c - 2; j++) {
+      if (world[i][j] != 1) {
+        if (
+          world[i][j + 1] != 1 &&
+          world[i][j - 1] != 1 &&
+          world[i - 1][j] != 1 &&
+          world[i + 1][j] < 2 != 1 &&
+          world[i + 1][j + 1] != 1 &&
+          world[i - 1][j + 1] != 1 &&
+          world[i - 1][j - 1] != 1 &&
+          world[i + 1][j - 1] != 1
+        ) {
+          world[i][j] = 1;
+        }
+      }
+    }
+  }
+  //drawWorld(); debugger;
   console.log(world);
   return world;
 }
