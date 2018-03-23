@@ -115,6 +115,95 @@ function createRandomWorld() {
     }
   }
   //drawWorld(); debugger;
+  //check square elements one more time
+  function checkSpuare() {
+    for (var i = 2; i < size.r - 2; i++) {
+      for (var j = 2; j < size.c - 2; j++) {
+        if (world[i][j] != 1) {
+          if (
+            world[i][j - 1] != 1 &&
+            world[i - 1][j - 1] != 1 &&
+            world[i - 1][j] != 1
+          ) {
+            if (world[i - 1][j + 1] == 1 && world[i - 2][j] == 1) {
+              world[i - 1][j] = 1;
+            } else if (world[i - 1][j - 2] == 1 && world[i - 2][j - 1] == 1) {
+              world[i - 1][j - 1] = 1;
+            } else if (world[i][j - 2] == 1 && world[i + 1][j - 1] == 1) {
+              world[i][j - 1] = 1;
+            } else if (world[i][j + 1] == 1 && world[i + 1][j] == 1) {
+              world[i][j] = 1;
+            }
+          }
+        }
+      } //drawWorld(); debugger;
+    }
+    if (
+      world[2][size.c - 2] != 1 &&
+      world[2][size.c - 3] != 1 &&
+      world[1][size.c - 3] != 1 &&
+      world[1][size.c - 2] != 1
+    ) {
+      if (world[2][size.c - 4] == 1 && world[3][size.c - 3] == 1) {
+        world[2][size.c - 3] = 1;
+      }
+    }
+    if (
+      world[size.r - 2][2] != 1 &&
+      world[size.r - 3][2] != 1 &&
+      world[size.r - 2][1] != 1 &&
+      world[size.r - 3][1] != 1
+    ) {
+      if (world[size.r - 4][2] == 1 && world[size.r - 3][3] == 1) {
+        world[size.r - 3][2] = 1;
+      }
+    }
+    if (
+      world[size.r - 2][size.c - 2] != 1 &&
+      world[size.r - 2][size.c - 3] != 1 &&
+      world[size.r - 3][size.c - 3] != 1 &&
+      world[size.r - 3][size.c - 2] != 1
+    ) {
+      if (
+        world[size.r - 3][size.c - 4] == 1 &&
+        world[size.r - 4][size.c - 3] == 1
+      ) {
+        world[size.r - 3][size.c - 3] = 1;
+      }
+    }
+    for (var i = 3; i < size.r - 3; i++) {
+      if (
+        world[i][size.c - 2] != 1 &&
+        world[i][size.c - 3] != 1 &&
+        world[i - 1][size.c - 3] != 1 &&
+        world[i - 1][size.c - 2] != 1
+      ) {
+        if (world[i - 1][size.c - 4] == 1 && world[i - 2][size.c - 3] == 1) {
+          world[i - 1][size.c - 3] = 1;
+        }
+        if (world[i][size.c - 4] == 1 && world[i + 1][size.c - 3] == 1) {
+          world[i][size.c - 3] = 1;
+        }
+      } //drawWorld(); debugger;
+    }
+    for (var j = 3; j < size.c - 3; j++) {
+      if (
+        world[size.r - 2][j] != 1 &&
+        world[size.r - 2][j - 1] != 1 &&
+        world[size.r - 3][j - 1] != 1 &&
+        world[size.r - 3][j] != 1
+      ) {
+        if (world[size.r - 3][j + 1] == 1 && world[size.r - 4][j] == 1) {
+          world[size.r - 3][j] = 1;
+        }
+        if (world[size.r - 3][j - 2] == 1 && world[size.r - 4][j - 1] == 1) {
+          world[size.r - 3][j - 1] = 1;
+        }
+      }
+    } //drawWorld(); debugger;
+  }
+  checkSpuare();
+  //drawWorld(); debugger;
   console.log(world);
   return world;
 }
