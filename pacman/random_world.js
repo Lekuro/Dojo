@@ -1,16 +1,21 @@
 function createRandomWorld() {
+  //create random world with blue and black border
   for (var i = 0; i < size.r; i++) {
     world[i] = [];
     for (var j = 0; j < size.c; j++) {
       if (i == 0 || i == size.r - 1 || j == 0 || j == size.c - 1) {
         world[i][j] = 1;
       } else if (i == 1 && j == 1) {
+        // || (i == 1 && j == size.c - 2) || (i == size.r - 2 && j == 1) || (i == size.r - 2 && j == size.c - 2)
         world[i][j] = 0;
+      } else if (i == 1 || j == 1 || i == size.r - 2 || j == size.c - 2) {
+        world[i][j] = Math.floor(2 + Math.random() * 2);
       } else {
         world[i][j] = Math.floor(1 + Math.random() * 3);
       }
     }
   }
+  //drawWorld(); debugger;
   //check square elements
   for (var i = 1; i < size.r; i++) {
     for (var j = 1; j < size.c; j++) {
