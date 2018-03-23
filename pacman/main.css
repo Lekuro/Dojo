@@ -1,0 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.row {
+  line-height: 0;
+}
+.block {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+}
+.wall {
+  background-color: blue;
+}
+
+.blank {
+  background-color: black;
+}
+
+.sushi {
+  background-color: black;
+  background-image: url("img/sushi.png");
+  background-size: contain;
+}
+
+#ninjaman {
+  background-color: black;
+  background-image: url("img/ninja.gif");
+  background-size: contain;
+  position: absolute;
+}

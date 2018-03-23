@@ -4,124 +4,13 @@
 <head>
   <meta charset="UTF-8">
   <title>NinjaMan</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-    }
-
-    .row {
-      line-height: 0;
-    }
-
-    .wall {
-      width: 40px;
-      height: 40px;
-      display: inline-block;
-      background-color: blue;
-    }
-
-    .blank {
-      width: 40px;
-      height: 40px;
-      display: inline-block;
-      background-color: black;
-    }
-
-    .sushi {
-      width: 40px;
-      height: 40px;
-      display: inline-block;
-      background-color: black;
-      background-image: url("img/sushi.png");
-      background-size: contain;
-    }
-
-    #ninjaman {
-      width: 40px;
-      height: 40px;
-      display: inline-block;
-      background-color: black;
-      background-image: url("img/ninja.gif");
-      background-size: contain;
-      position: absolute;
-    }
-  </style>
+  <link rel="stylesheet" href="main.css">
 </head>
 
 <body>
   <div id="world"></div>
-  <div id="ninjaman" class="wall"></div>
-  <script>
-    var world = [
-      [1, 1, 1, 1, 1],
-      [1, 0, 2, 2, 1],
-      [1, 2, 1, 2, 1],
-      [1, 2, 2, 2, 1],
-      [1, 2, 2, 2, 1],
-      [1, 2, 1, 2, 1],
-      [1, 2, 2, 2, 1],
-      [1, 2, 2, 2, 1],
-      [1, 2, 1, 2, 1],
-      [1, 2, 2, 2, 1],
-      [1, 1, 1, 1, 1],
-    ]
-    var worldDict = {
-      0: 'blank',
-      1: 'wall',
-      2: 'sushi',
-    }
-    function drawWorld() {
-      output = "";
-      for (var row = 0; row < world.length; row++) {
-        output += '<div class="row">';
-        for (var x = 0; x < world[row].length; x++) {
-          output += '<div class="' + worldDict[world[row][x]] + '"></div>';
-          //console.log("value: ", worldDict[world[row][x]]);
-        }
-        output += '</div>';
-      }
-      document.getElementById('world').innerHTML = output;
-    }
-    drawWorld();
-
-    var ninjaman = {
-      x: 1,
-      y: 1,
-    }
-    function drawNinjaman() {
-      document.getElementById('ninjaman').style.top = ninjaman.y * 40 + 'px';
-      document.getElementById('ninjaman').style.left = ninjaman.x * 40 + 'px';
-    }
-    drawNinjaman();
-    document.onkeydown = function (e) {
-      if (e.keyCode == 37) {
-        if (world[ninjaman.y][ninjaman.x - 1] != 1) {
-          ninjaman.x--;
-        }
-      }
-      if (e.keyCode == 39) {
-        if (world[ninjaman.y][ninjaman.x + 1] != 1) {
-          ninjaman.x++;
-        }
-      }
-      if (e.keyCode == 38) {
-        if (world[ninjaman.y - 1][ninjaman.x] != 1) {
-          ninjaman.y--;
-        }
-      }
-      if (e.keyCode == 40) {
-        if (world[ninjaman.y + 1][ninjaman.x] != 1) {
-          ninjaman.y++;
-        }
-      }
-      //console.log(ninjaman, world[ninjaman.y][ninjaman.x]);
-      world[ninjaman.y][ninjaman.x] = 0;
-      drawWorld();
-      drawNinjaman();
-    }
-
-  </script>
+  <div id="ninjaman" class="block"></div>
+  <script src="main.js"></script>
 </body>
 
 </html>
