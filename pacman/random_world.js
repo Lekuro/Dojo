@@ -11,6 +11,21 @@ function createRandomWorld() {
       }
     }
   }
+  //check square elements
+  for (var i = 1; i < size.r; i++) {
+    for (var j = 1; j < size.c; j++) {
+      if (world[i][j] != 1) {
+        if (
+          world[i][j - 1] != 1 &&
+          world[i - 1][j - 1] != 1 &&
+          world[i - 1][j] != 1
+        ) {
+          world[i][j] = 1;
+        }
+      }
+    } //drawWorld(); debugger;
+  }
+  //drawWorld(); debugger;
   //Check from left to right lonely elements and continue them
   for (var i = 1; i < size.r - 1; i++) {
     for (var j = 1; j < size.c - 2; j++) {
