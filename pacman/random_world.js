@@ -16,7 +16,7 @@ function createRandomWorld() {
     }
   }
   //drawWorld(); debugger;
-  //check square elements
+  //check square elements that black border would be straight
   for (var i = 1; i < size.r; i++) {
     for (var j = 1; j < size.c; j++) {
       if (world[i][j] != 1) {
@@ -25,7 +25,11 @@ function createRandomWorld() {
           world[i - 1][j - 1] != 1 &&
           world[i - 1][j] != 1
         ) {
-          world[i][j] = 1;
+          if (i == size.r - 2 || j == size.c - 2) {
+            world[i - 1][j - 1] = 1;
+          } else {
+            world[i][j] = 1;
+          }
         }
       }
     } //drawWorld(); debugger;
