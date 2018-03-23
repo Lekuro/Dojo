@@ -39,6 +39,15 @@ function drawNinjaman() {
   document.getElementById("ninjaman").style.left = ninjaman.x * 40 + "px";
 }
 drawNinjaman();
+function drawMenu() {
+  output = "";
+  output += '<div class="block sushi"></div>';
+  output += '<div class="print"></div>';
+  document.getElementById("menu").innerHTML = output;
+}
+drawMenu();
+var score = 0;
+var print = document.getElementsByClassName("print");
 document.onkeydown = function(e) {
   if (e.keyCode == 37) {
     if (world[ninjaman.y][ninjaman.x - 1] != 1) {
@@ -61,7 +70,12 @@ document.onkeydown = function(e) {
     }
   }
   //console.log(ninjaman, world[ninjaman.y][ninjaman.x]);
-  world[ninjaman.y][ninjaman.x] = 0;
+  if (world[ninjaman.y][ninjaman.x] == 2) {
+    score++;
+    console.log(score, world[ninjaman.y][ninjaman.x]);
+    print[0].innerHTML = score;
+    world[ninjaman.y][ninjaman.x] = 0;
+  }
   drawWorld();
   drawNinjaman();
 };

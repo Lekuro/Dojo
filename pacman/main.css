@@ -31,3 +31,13 @@
   background-size: contain;
   position: absolute;
 }
+.print {
+  font-size: 36px;
+  width: 160px;
+  text-align: center;
+  height: 40px;
+  line-height: 40px;
+  vertical-align: top;
+  display: inline-block;
+  background-color: aquamarine;
+}
