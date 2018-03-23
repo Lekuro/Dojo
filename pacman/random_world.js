@@ -281,6 +281,67 @@ function createRandomWorld() {
   }
   //drawWorld(); debugger;
   checkSpuare();
+  //drawWorld(); debugger;
+  //Check dead end from left to right
+  for (var i = 1; i < size.r - 1; i++) {
+    for (var j = 1; j < size.c - 2; j++) {
+      if (world[i][j] != 1) {
+        if (
+          world[i][j + 1] == 1 &&
+          world[i - 1][j] == 1 &&
+          world[i + 1][j] == 1
+        ) {
+          world[i][j] = 1;
+        }
+      }
+    }
+  }
+  //drawWorld(); debugger;
+  //check dead end from top to bottom
+  for (var i = 1; i < size.r - 2; i++) {
+    for (var j = 1; j < size.c - 1; j++) {
+      if (world[i][j] != 1) {
+        if (
+          world[i][j + 1] == 1 &&
+          world[i][j - 1] == 1 &&
+          world[i + 1][j] == 1
+        ) {
+          world[i][j] = 1;
+        }
+      }
+    }
+  }
+  //drawWorld(); debugger;
+  //Check dead end from right to left
+  for (var i = 1; i < size.r - 1; i++) {
+    for (var j = size.c - 2; j >= 2; j--) {
+      if (world[i][j] != 1) {
+        if (
+          world[i][j - 1] == 1 &&
+          world[i - 1][j] == 1 &&
+          world[i + 1][j] == 1
+        ) {
+          world[i][j] = 1;
+        }
+      }
+    }
+  }
+  //drawWorld(); debugger;
+  //check dead end from bottom to top
+  for (var i = size.r - 2; i > 1; i--) {
+    for (var j = 1; j < size.c - 1; j++) {
+      if (world[i][j] != 1) {
+        if (
+          world[i][j + 1] == 1 &&
+          world[i][j - 1] == 1 &&
+          world[i - 1][j] == 1
+        ) {
+          world[i][j] = 1;
+        }
+      }
+    }
+  }
+  //drawWorld(); debugger;
   console.log(world);
   return world;
 }
