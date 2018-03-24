@@ -97,11 +97,13 @@ function drawMenu() {
   output += '<div class="print"></div>';
   output += '<div class="print">points:</div>';
   output += '<div class="print"></div>';
-
+  output += '<button id="newGame">new game</button>';
   document.getElementById("menu").innerHTML = output;
 }
 drawMenu();
-
+document.getElementById("newGame").onclick = function() {
+  window.location.reload();
+};
 function drawBoom(i) {
   document.getElementsByClassName("boom")[i].style.top = ninjaman.y * 40 + "px";
   document.getElementsByClassName("boom")[i].style.left =

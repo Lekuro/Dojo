@@ -98,6 +98,11 @@
   background-image: url("img/fireworks_green.gif");
   background-size: cover;
   position: absolute;
-  top: center;
-  left: center;
+}
+#newGame {
+  font-size: 28px;
+  width: 100%;
+  height: 40px;
+  background-color: orchid;
+  opacity: 0.5;
 }
