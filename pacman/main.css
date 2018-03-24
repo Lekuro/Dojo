@@ -76,7 +76,7 @@
   line-height: 40px;
   vertical-align: top;
   display: inline-block;
-  background-color: aquamarine;
+  background-color: pink;
   opacity: 0.5;
 }
 
@@ -98,4 +98,6 @@
   background-image: url("img/fireworks_green.gif");
   background-size: cover;
   position: absolute;
+  top: center;
+  left: center;
 }

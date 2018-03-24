@@ -343,6 +343,6 @@ function createRandomWorld() {
     }
   }
   //drawWorld(); debugger;
-  console.log(world);
+  //console.log(world);
   return world;
 }

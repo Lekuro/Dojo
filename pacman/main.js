@@ -6,7 +6,7 @@ var worldDict = {
   2: "block sushi",
   3: "block onigiri"
 };
-var size = { r: 12, c: 21 };
+var size = { r: 15, c: 29 }; //15 33 29
 var world = [];
 createRandomWorld();
 
@@ -42,6 +42,18 @@ var cost = {
   onigiri: 5
 };
 var totalCost = countOnigiri * cost.onigiri + countSushi * cost.sushi;
+
+var worldGhosts = [];
+for (var i = 0; i < size.r; i++) {
+  worldGhosts[i] = [];
+  for (var j = 0; j < size.c; j++) {
+    worldGhosts[i][j] = 0;
+  }
+}
+for (i = 0; i < ghosts.length; i++) {
+  worldGhosts[ghosts[i].y][ghosts[i].x] = 1;
+}
+//console.log(worldGhosts);
 
 function drawWorld() {
   output = "";
@@ -96,8 +108,8 @@ function drawBoom(i) {
     ninjaman.x * 40 + "px";
 }
 function drawFireworks() {
-  document.getElementById("fireworks").style.top = 40 + "px";
-  document.getElementById("fireworks").style.left = 40 + "px";
+  document.getElementById("fireworks").style.top = 40 + "px"; //
+  document.getElementById("fireworks").style.left = 40 + "px"; //
   document.getElementById("fireworks").style.display = "block";
 }
 
@@ -171,30 +183,50 @@ function moveGhosts() {
   for (var i = 0; i < ghosts.length; i++) {
     var step = 0;
     if (ninjaman.x < ghosts[i].x) {
-      if (world[ghosts[i].y][ghosts[i].x - 1] != 1) {
+      if (
+        world[ghosts[i].y][ghosts[i].x - 1] != 1 &&
+        worldGhosts[ghosts[i].y][ghosts[i].x - 1] != 1
+      ) {
+        worldGhosts[ghosts[i].y][ghosts[i].x] = 0;
         ghosts[i].x--;
+        worldGhosts[ghosts[i].y][ghosts[i].x] = 1;
         step++;
       }
     }
     if (ninjaman.x > ghosts[i].x) {
-      if (world[ghosts[i].y][ghosts[i].x + 1] != 1) {
+      if (
+        world[ghosts[i].y][ghosts[i].x + 1] != 1 &&
+        worldGhosts[ghosts[i].y][ghosts[i].x + 1] != 1
+      ) {
+        worldGhosts[ghosts[i].y][ghosts[i].x] = 0;
         ghosts[i].x++;
+        worldGhosts[ghosts[i].y][ghosts[i].x] = 1;
         step++;
       }
     }
     if (step === 0) {
       if (ninjaman.y < ghosts[i].y) {
-        if (world[ghosts[i].y - 1][ghosts[i].x] != 1) {
+        if (
+          world[ghosts[i].y - 1][ghosts[i].x] != 1 &&
+          worldGhosts[ghosts[i].y - 1][ghosts[i].x] != 1
+        ) {
+          worldGhosts[ghosts[i].y][ghosts[i].x] = 0;
           ghosts[i].y--;
+          worldGhosts[ghosts[i].y][ghosts[i].x] = 1;
         }
       }
       if (ninjaman.y > ghosts[i].y) {
-        if (world[ghosts[i].y + 1][ghosts[i].x] != 1) {
+        if (
+          world[ghosts[i].y + 1][ghosts[i].x] != 1 &&
+          worldGhosts[ghosts[i].y + 1][ghosts[i].x] != 1
+        ) {
+          worldGhosts[ghosts[i].y][ghosts[i].x] = 0;
           ghosts[i].y++;
+          worldGhosts[ghosts[i].y][ghosts[i].x] = 1;
         }
       }
     }
-    drawGhosts();
+
     if (ninjaman.x === ghosts[i].x && ninjaman.y === ghosts[i].y) {
       drawBoom(end);
       end++;
@@ -204,6 +236,12 @@ function moveGhosts() {
       end = 3;
     }
   }
+  drawGhosts();
+  //for (j = 0; j < ghosts.length; j++) {
+  //  worldGhosts[ghosts[j].y][ghosts[j].x] = 1;
+  // }
+  console.log(worldGhosts);
+  debugger;
 }
 function gameLoop() {
   moveGhosts();
