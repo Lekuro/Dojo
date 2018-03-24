@@ -1,3 +1,5 @@
+var end = 0;
+
 var worldDict = {
   0: "block blank",
   1: "block wall",
@@ -19,13 +21,28 @@ var ghosts = [
   { x: Math.round((size.c - 2) / 2), y: size.r - 2 },
   { x: size.c - 2, y: Math.round((size.r - 2) / 2) }
 ];
-
+//------count sushi and onigiri into random world-------------
+var countSushi = 0;
+var countOnigiri = 0;
+for (var i = 1; i < size.r - 1; i++) {
+  for (j = 1; j < size.c - 1; j++) {
+    if (world[i][j] == 2) {
+      countSushi++;
+    }
+    if (world[i][j] == 3) {
+      countOnigiri++;
+    }
+  }
+}
 var scoreSushi = 0;
 var scoreOnigiri = 0;
+var scoreTotal;
 var cost = {
   sushi: 10,
   onigiri: 5
 };
+var totalCost = countOnigiri * cost.onigiri + countSushi * cost.sushi;
+
 function drawWorld() {
   output = "";
   for (var row = 0; row < world.length; row++) {
@@ -64,84 +81,136 @@ drawGhosts();
 
 function drawMenu() {
   output = "";
-  output += '<div><div class="block sushi"></div>';
-  output += '<div class="print"></div></div>';
-  output += '<div><div class="block onigiri"></div>';
-  output += '<div class="print"></div></div>';
-  output += '<div><div class="block sushi"></div>';
-  output += '<div class="block onigiri"></div>';
-  output += '<div class="print"></div></div>';
+  output += '<div class="print">3life:</div>';
+  output += '<div class="print"></div>';
+  output += '<div class="print">points:</div>';
+  output += '<div class="print"></div>';
+
   document.getElementById("menu").innerHTML = output;
 }
 drawMenu();
 
+function drawBoom(i) {
+  document.getElementsByClassName("boom")[i].style.top = ninjaman.y * 40 + "px";
+  document.getElementsByClassName("boom")[i].style.left =
+    ninjaman.x * 40 + "px";
+}
+function drawFireworks() {
+  document.getElementById("fireworks").style.top = 40 + "px";
+  document.getElementById("fireworks").style.left = 40 + "px";
+  document.getElementById("fireworks").style.display = "block";
+}
+
 var print = document.getElementsByClassName("print");
 document.onkeydown = function(e) {
-  if (e.keyCode == 37) {
-    if (world[ninjaman.y][ninjaman.x - 1] != 1) {
-      ninjaman.x--;
+  if (end !== 3) {
+    if (e.keyCode == 37) {
+      if (world[ninjaman.y][ninjaman.x - 1] != 1) {
+        ninjaman.x--;
+      }
     }
-  }
-  if (e.keyCode == 39) {
-    if (world[ninjaman.y][ninjaman.x + 1] != 1) {
-      ninjaman.x++;
+    if (e.keyCode == 39) {
+      if (world[ninjaman.y][ninjaman.x + 1] != 1) {
+        ninjaman.x++;
+      }
     }
-  }
-  if (e.keyCode == 38) {
-    if (world[ninjaman.y - 1][ninjaman.x] != 1) {
-      ninjaman.y--;
+    if (e.keyCode == 38) {
+      if (world[ninjaman.y - 1][ninjaman.x] != 1) {
+        ninjaman.y--;
+      }
     }
-  }
-  if (e.keyCode == 40) {
-    if (world[ninjaman.y + 1][ninjaman.x] != 1) {
-      ninjaman.y++;
+    if (e.keyCode == 40) {
+      if (world[ninjaman.y + 1][ninjaman.x] != 1) {
+        ninjaman.y++;
+      }
     }
+    //console.log(ninjaman, world[ninjaman.y][ninjaman.x]);
+    if (world[ninjaman.y][ninjaman.x] == 2) {
+      scoreSushi += cost.sushi;
+      //console.log(scoreSushi, world[ninjaman.y][ninjaman.x]);
+      //print[0].innerHTML = scoreSushi;
+      world[ninjaman.y][ninjaman.x] = 0;
+    }
+    if (world[ninjaman.y][ninjaman.x] == 3) {
+      scoreOnigiri += cost.onigiri;
+      //console.log(scoreOnigiri, world[ninjaman.y][ninjaman.x]);
+      //print[1].innerHTML = scoreOnigiri;
+      world[ninjaman.y][ninjaman.x] = 0;
+    }
+    scoreTotal = scoreSushi + scoreOnigiri;
+    print[3].innerHTML = scoreTotal;
+    drawWorld();
+    drawNinjaman();
+  } else if (scoreTotal === totalCost) {
+    if (e.keyCode == 37) {
+      if (world[ninjaman.y][ninjaman.x - 1] != 1) {
+        ninjaman.x--;
+      }
+    }
+    if (e.keyCode == 39) {
+      if (world[ninjaman.y][ninjaman.x + 1] != 1) {
+        ninjaman.x++;
+      }
+    }
+    if (e.keyCode == 38) {
+      if (world[ninjaman.y - 1][ninjaman.x] != 1) {
+        ninjaman.y--;
+      }
+    }
+    if (e.keyCode == 40) {
+      if (world[ninjaman.y + 1][ninjaman.x] != 1) {
+        ninjaman.y++;
+      }
+    }
+    drawWorld();
+    drawNinjaman();
   }
-  //console.log(ninjaman, world[ninjaman.y][ninjaman.x]);
-  if (world[ninjaman.y][ninjaman.x] == 2) {
-    scoreSushi += cost.sushi;
-    //console.log(scoreSushi, world[ninjaman.y][ninjaman.x]);
-    print[0].innerHTML = scoreSushi;
-    world[ninjaman.y][ninjaman.x] = 0;
-  }
-  if (world[ninjaman.y][ninjaman.x] == 3) {
-    scoreOnigiri += cost.onigiri;
-    //console.log(scoreOnigiri, world[ninjaman.y][ninjaman.x]);
-    print[1].innerHTML = scoreOnigiri;
-    world[ninjaman.y][ninjaman.x] = 0;
-  }
-  print[2].innerHTML = scoreSushi + scoreOnigiri;
-  drawWorld();
-  drawNinjaman();
 };
+
 function moveGhosts() {
   for (var i = 0; i < ghosts.length; i++) {
+    var step = 0;
     if (ninjaman.x < ghosts[i].x) {
       if (world[ghosts[i].y][ghosts[i].x - 1] != 1) {
         ghosts[i].x--;
+        step++;
       }
     }
     if (ninjaman.x > ghosts[i].x) {
       if (world[ghosts[i].y][ghosts[i].x + 1] != 1) {
         ghosts[i].x++;
+        step++;
       }
     }
-    if (ninjaman.y < ghosts[i].y) {
-      if (world[ghosts[i].y - 1][ghosts[i].x] != 1) {
-        ghosts[i].y--;
+    if (step === 0) {
+      if (ninjaman.y < ghosts[i].y) {
+        if (world[ghosts[i].y - 1][ghosts[i].x] != 1) {
+          ghosts[i].y--;
+        }
       }
-    }
-    if (ninjaman.y > ghosts[i].y) {
-      if (world[ghosts[i].y + 1][ghosts[i].x] != 1) {
-        ghosts[i].y++;
+      if (ninjaman.y > ghosts[i].y) {
+        if (world[ghosts[i].y + 1][ghosts[i].x] != 1) {
+          ghosts[i].y++;
+        }
       }
     }
     drawGhosts();
+    if (ninjaman.x === ghosts[i].x && ninjaman.y === ghosts[i].y) {
+      drawBoom(end);
+      end++;
+    }
+    if (scoreTotal === totalCost) {
+      drawFireworks();
+      end = 3;
+    }
   }
 }
 function gameLoop() {
   moveGhosts();
   console.log("gameLoop is running!");
   var timer = setTimeout(gameLoop, 1000);
+  if (end === 3) {
+    clearTimeout(timer);
+  }
 }
 gameLoop();
