@@ -6,7 +6,16 @@ var worldDict = {
   2: "block sushi",
   3: "block onigiri"
 };
+
+var widthScreen = screen.width;
+var heightScreen = screen.height;
 var size = { r: 15, c: 29 }; //15 33 29
+size.c = Math.floor(widthScreen / 40 - 4);
+size.r = Math.floor(heightScreen / 40 - 4);
+console.log(widthScreen, heightScreen);
+var fireworksSize;
+size.c > size.r ? (fireworksSize = size.r) : (fireworksSize = size.c);
+
 var world = [];
 createRandomWorld();
 
@@ -15,12 +24,24 @@ var ninjaman = {
   y: 1
 };
 var ghosts = [
-  { x: size.c - 2, y: 1 },
   { x: 1, y: size.r - 2 },
+  { x: size.c - 2, y: 1 },
   { x: size.c - 2, y: size.r - 2 },
   { x: Math.round((size.c - 2) / 2), y: size.r - 2 },
   { x: size.c - 2, y: Math.round((size.r - 2) / 2) }
 ];
+var lessGhosts = 4;
+if (size.r * size.c < 100) {
+  lessGhosts = 4;
+} else if (size.r * size.c < 200) {
+  lessGhosts = 3;
+} else if (size.r * size.c < 300) {
+  lessGhosts = 2;
+} else if (size.r * size.c < 400) {
+  lessGhosts = 1;
+} else {
+  lessGhosts = 0;
+}
 //------count sushi and onigiri into random world-------------
 var countSushi = 0;
 var countOnigiri = 0;
@@ -50,7 +71,7 @@ for (var i = 0; i < size.r; i++) {
     worldGhosts[i][j] = 0;
   }
 }
-for (i = 0; i < ghosts.length; i++) {
+for (i = 0; i < ghosts.length - lessGhosts; i++) {
   worldGhosts[ghosts[i].y][ghosts[i].x] = 1;
 }
 //console.log(worldGhosts);
@@ -78,7 +99,7 @@ drawNinjaman();
 function drawGhosts() {
   content = "";
   //console.log(enemies);
-  for (var i = 0; i < ghosts.length; i++) {
+  for (var i = 0; i < ghosts.length - lessGhosts; i++) {
     //console.log(idx);
     content +=
       '<div class="ghost" style="left:' +
@@ -93,25 +114,38 @@ drawGhosts();
 
 function drawMenu() {
   output = "";
-  output += '<div class="print">3life:</div>';
-  output += '<div class="print"></div>';
+  output += '<div class="print"><b>3</b> life:</div>';
+  //output += '<button id="size">size</button>';
   output += '<div class="print">points:</div>';
   output += '<div class="print"></div>';
+  output += '<button class="move">up</button>';
+  output += '<button class="move box">left</button>';
+  output += '<button class="move box">right</button>';
+  output += '<button class="move">down</button>';
   output += '<button id="newGame">new game</button>';
   document.getElementById("menu").innerHTML = output;
 }
 drawMenu();
-document.getElementById("newGame").onclick = function() {
+//document.getElementById("size").addEventListener("click", changeSize);
+document.getElementById("newGame").addEventListener("click", loadPage);
+function loadPage() {
   window.location.reload();
-};
+}
+document.getElementsByClassName("move")[0].addEventListener("click", moveUp);
+document.getElementsByClassName("move")[1].addEventListener("click", moveLeft);
+document.getElementsByClassName("move")[2].addEventListener("click", moveRight);
+document.getElementsByClassName("move")[3].addEventListener("click", moveDown);
+
 function drawBoom(i) {
   document.getElementsByClassName("boom")[i].style.top = ninjaman.y * 40 + "px";
   document.getElementsByClassName("boom")[i].style.left =
     ninjaman.x * 40 + "px";
 }
 function drawFireworks() {
-  document.getElementById("fireworks").style.top = 40 + "px"; //
-  document.getElementById("fireworks").style.left = 40 + "px"; //
+  document.getElementById("fireworks").style.top = 0 + "px";
+  document.getElementById("fireworks").style.left = 0 + "px";
+  document.getElementById("fireworks").style.width = fireworksSize * 40 + "px";
+  document.getElementById("fireworks").style.height = fireworksSize * 40 + "px";
   document.getElementById("fireworks").style.display = "block";
 }
 
@@ -152,7 +186,7 @@ document.onkeydown = function(e) {
       world[ninjaman.y][ninjaman.x] = 0;
     }
     scoreTotal = scoreSushi + scoreOnigiri;
-    print[3].innerHTML = scoreTotal;
+    print[2].innerHTML = scoreTotal;
     drawWorld();
     drawNinjaman();
   } else if (scoreTotal === totalCost) {
@@ -180,9 +214,9 @@ document.onkeydown = function(e) {
     drawNinjaman();
   }
 };
-
+var b = document.getElementsByTagName("b")[0];
 function moveGhosts() {
-  for (var i = 0; i < ghosts.length; i++) {
+  for (var i = 0; i < ghosts.length - lessGhosts; i++) {
     var step = 0;
     if (ninjaman.x < ghosts[i].x) {
       if (
@@ -232,6 +266,7 @@ function moveGhosts() {
     if (ninjaman.x === ghosts[i].x && ninjaman.y === ghosts[i].y) {
       drawBoom(end);
       end++;
+      b.innerHTML = 3 - end;
     }
     if (scoreTotal === totalCost) {
       drawFireworks();
@@ -242,8 +277,8 @@ function moveGhosts() {
   //for (j = 0; j < ghosts.length; j++) {
   //  worldGhosts[ghosts[j].y][ghosts[j].x] = 1;
   // }
-  console.log(worldGhosts);
-  debugger;
+  //console.log(worldGhosts);
+  //debugger;
 }
 function gameLoop() {
   moveGhosts();
