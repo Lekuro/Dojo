@@ -1,0 +1,15 @@
+function hex2dec(val){
+    console.log('hex2dec() data:',val,'result',parseInt(val,16))
+    return parseInt(val, 16)
+}
+console.log(hex2dec(47))
+console.log(hex2dec('db'))
+console.log(hex2dec(5))
+console.log(hex2dec('20c'))
+console.log(hex2dec('4f'))
+console.log(hex2dec('b2'))
+console.log(hex2dec(0))
+console.log(hex2dec(-12))
+console.log(hex2dec('7e'))
+console.log(hex2dec(101))
+console.log('---------------------------------------------------')

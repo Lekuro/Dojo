@@ -1,0 +1,17 @@
+function bin2dec(val){
+    console.log('bin2dec() data:',val,'result',parseInt(val,2))
+    return parseInt(val, 2)
+}
+console.log(bin2dec(100111))
+console.log(bin2dec(10100101))
+console.log(bin2dec(111))
+console.log(bin2dec(1111000))
+console.log(bin2dec(110110))
+console.log(bin2dec(000))
+console.log(bin2dec(11))
+console.log(bin2dec(-1010))
+console.log(bin2dec(100110))
+console.log(bin2dec(1010101010))
+console.log(bin2dec(111001))
+console.log(bin2dec(100101))
+console.log('---------------------------------------------------')

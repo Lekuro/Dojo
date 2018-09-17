@@ -1,0 +1,17 @@
+function dec2hex(dec){
+    console.log('dec2hex() data:',dec,'result',(dec^0).toString(16))
+    return (dec^0).toString(16)
+}
+//console.log('dec2hex')
+console.log(dec2hex(31))
+console.log(dec2hex(13))
+console.log(dec2hex(6))
+console.log(dec2hex(25))
+console.log(dec2hex(8))
+console.log(dec2hex(45))
+console.log(dec2hex(10))
+console.log(dec2hex(-9))
+console.log(dec2hex(64))
+console.log(dec2hex(255))
+console.log(dec2hex(238))
+console.log('---------------------------------------------------')
